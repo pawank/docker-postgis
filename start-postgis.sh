@@ -97,6 +97,11 @@ else
     # Create a default db called 'gis' that you can use to get up and running quickly
     # It will be owned by the docker db user
     su - postgres -c "createdb -O docker -T template_postgis gis"
+    echo "Creating application specific database called - appdb"
+    su - postgres -c "createdb -O docker -T template_postgis appdb"
+    su - postgres -c "export PGPASSWORD=$PASS"
+    su - postgres -c 'psql -U $USERNAME -d appdb -c "create extension hstore;"'
+    su - postgres -c 'psql -U $USERNAME -d appdb -c "CREATE EXTENSION ltree;"'
 fi
 # This should show up in docker logs afterwards
 su - postgres -c "psql -l"
