@@ -1,1 +1,3 @@
-docker build -t kartoza/postgis .
+#!/bin/sh
+
+docker build -t pawank/postgis .
